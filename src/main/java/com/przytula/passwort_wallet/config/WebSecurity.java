@@ -1,5 +1,7 @@
 package com.przytula.passwort_wallet.config;
 
+import com.przytula.passwort_wallet.encoder.HmacPasswordEncoder;
+import com.przytula.passwort_wallet.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,7 +17,7 @@ import java.util.Map;
 
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
-    private UserDetailService userDetailService;
+    private final UserDetailService userDetailService;
 
     @Autowired
     public WebSecurity(UserDetailService userDetailService) {
@@ -57,12 +59,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 
     @Bean
-    public PasswordEncoder encoder(){
+    public PasswordEncoder encoder() {
         String encodeId = "bcrypt";
-        Map<String, PasswordEncoder> encoderMap =  new HashMap<>();
+        Map<String, PasswordEncoder> encoderMap = new HashMap<>();
         encoderMap.put(encodeId, new BCryptPasswordEncoder());
         encoderMap.put("hmac", new HmacPasswordEncoder());
-        return  new DelegatingPasswordEncoder(encodeId , encoderMap);
+        return new DelegatingPasswordEncoder(encodeId, encoderMap);
     }
 
 }
