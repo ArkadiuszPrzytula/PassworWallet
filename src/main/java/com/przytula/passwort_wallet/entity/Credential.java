@@ -1,11 +1,15 @@
 package com.przytula.passwort_wallet.entity;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Entity
+@Getter
+@Setter
 @Table(name = "crediential")
 public class Credential {
 
